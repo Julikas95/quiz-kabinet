@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Квіз від Кабінету водія</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+    .question {
+      display: none;
+    }
+    .question.active {
+      display: block;
+    }
+    .result {
+      display: none;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      margin-bottom: 15px;
+    }
+    button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      background-color: #0057b7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #003b82;
+    }
+  </style>
+</head>
+<body>
+  <h2>🚦 Перевір свої знання з ПДР</h2>
+  <div id="quiz">
+    <div class="question active" data-answer="A">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/UA_3.21.svg/1200px-UA_3.21.svg.png" alt="Знак дорожнього руху" />
+      <p><strong>Питання 1:</strong> Що означає цей знак?</p>
+      <button onclick="checkAnswer('A')">Рух заборонено</button>
+      <button onclick="checkAnswer('B')">Проїзд дозволено</button>
+      <button onclick="checkAnswer('C')">Зупинка заборонена</button>
+    </div>
+    <div class="question" data-answer="B">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/UA_1.2.svg/2048px-UA_1.2.svg.png" alt="Знак дорожнього руху" />
+      <p><strong>Питання 2:</strong> Що означає цей знак?</p>
+      <button onclick="checkAnswer('A')">Поворот праворуч</button>
+      <button onclick="checkAnswer('B')">Головна дорога</button>
+      <button onclick="checkAnswer('C')">Перевага зустрічного руху</button>
+    </div>
+    <div class="question" data-answer="C">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/UA_1.39.svg/2048px-UA_1.39.svg.png" alt="Знак дорожнього руху" />
+      <p><strong>Питання 3:</strong> Що означає цей знак?</p>
+      <button onclick="checkAnswer('A')">Пішохідна доріжка</button>
+      <button onclick="checkAnswer('B')">Місце для парковки</button>
+      <button onclick="checkAnswer('C')">Пішохідний перехід</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    let current = 0;
+    let correct = 0;
+    const questions = document.querySelectorAll('.question');
+
+    function checkAnswer(choice) {
+      const answer = questions[current].dataset.answer;
+      if (choice === answer) {
+        correct++;
+      }
+      questions[current].classList.remove('active');
+      current++;
+      if (current < questions.length) {
+        questions[current].classList.add('active');
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      if (correct === questions.length) {
+        result.innerHTML = '<h3>🎉 Вітаємо! Ви відповіли правильно на всі питання та виграли приз!</h3>';
+      } else {
+        result.innerHTML = '<h3>😢 На жаль, ви не відповіли правильно на всі питання. Спробуйте ще раз!</h3>';
+      }
+    }
+  </script>
+</body>
+</html>
