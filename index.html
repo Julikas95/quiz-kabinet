@@ -75,9 +75,6 @@
 <body>
   <h2>🚦 Перевір свої знання з ПДР</h2>
 
-  <!-- Переможний звук -->
-  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c86fbdfb45.mp3?filename=success-1-6297.mp3"></audio>
-
   <div id="quiz">
     <div class="question active" data-answer="A">
       <img src="ua_3.21.svg" alt="Знак дорожнього руху" />
@@ -107,21 +104,12 @@
     let current = 0;
     let correct = 0;
     const questions = document.querySelectorAll('.question');
-    const winSound = document.getElementById('winSound');
 
     function checkAnswer(choice) {
       const answer = questions[current].dataset.answer;
       if (choice === answer) {
         correct++;
       }
-
-      // Якщо це останнє питання — відразу програємо звук
-      const isLastQuestion = current === questions.length - 1;
-      if (isLastQuestion && correct + 1 === questions.length && choice === answer) {
-        winSound.play();
-        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-      }
-
       questions[current].classList.remove('active');
       current++;
       if (current < questions.length) {
@@ -137,6 +125,7 @@
       if (correct === questions.length) {
         result.classList.add('winner');
         result.innerHTML = '<h3>🎉 Вітаємо! Ви відповіли правильно на всі питання та виграли приз!</h3>';
+        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
       } else {
         result.innerHTML = '<h3>😢 На жаль, ви не відповіли правильно на всі питання. Спробуйте ще раз!</h3>';
       }
