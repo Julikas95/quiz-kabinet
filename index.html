@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Квіз від Кабінету водія</title>
+  <title>Квіз Кабінету водія</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -22,47 +22,32 @@
       margin-bottom: 30px;
     }
 
-    .question {
-      display: none;
+    form {
       background: white;
-      color: #333;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-
-    .question.active {
-      display: block;
-    }
-
-    .result {
-      display: none;
-      text-align: center;
-      background: #ffffff;
-      color: #333;
       padding: 30px;
       border-radius: 12px;
+      color: #333;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    img {
-      max-width: 100%;
-      margin-bottom: 20px;
+    input {
+      padding: 12px;
+      border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 16px;
     }
 
     button {
-      display: block;
-      margin: 10px 0;
-      padding: 12px 20px;
-      width: 100%;
+      padding: 12px;
       background-color: #3D7D75;
       color: white;
+      font-weight: 500;
       border: none;
       border-radius: 8px;
       font-size: 16px;
-      font-weight: 500;
       cursor: pointer;
       transition: background 0.3s;
     }
@@ -70,11 +55,22 @@
     button:hover {
       background-color: #276458;
     }
+
+    #quiz { display: none; }
   </style>
 </head>
 <body>
-  <h2>🚗 Перевір свої знання з ПДР</h2>
+  <h2>🚗 Почнімо з кількох контактів</h2>
+
+  <form id="startForm">
+    <input type="text" name="name" placeholder="Ім’я" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="tel" name="phone" placeholder="Телефон" required />
+    <button type="submit">Почати квіз</button>
+  </form>
+
   <div id="quiz">
+    <h2>🚦 Перевір свої знання з ПДР</h2>
     <div class="question active" data-answer="A">
       <img src="ua_3.21.svg" alt="Знак дорожнього руху" />
       <p><strong>Питання 1:</strong> Що означає цей знак?</p>
@@ -100,6 +96,17 @@
   </div>
 
   <script>
+    // Приховуємо форму та показуємо квіз після заповнення форми
+    document.getElementById('startForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Можна тут відправити дані на Google Form, Formspree або інше
+      // Наприклад, console.log(e.target.name.value, e.target.email.value, e.target.phone.value);
+
+      this.style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+    });
+
     let current = 0;
     let correct = 0;
     const questions = document.querySelectorAll('.question');
@@ -130,3 +137,4 @@
   </script>
 </body>
 </html>
+
