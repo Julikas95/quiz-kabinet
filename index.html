@@ -23,6 +23,13 @@
       margin-bottom: 30px;
     }
 
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 20px;
+    }
+
     button {
       padding: 12px;
       background-color: #EAF3F1;
@@ -77,21 +84,21 @@
 
   <div id="quiz">
     <div class="question active" data-answer="A">
-      <img src="ua_3.21.svg" alt="Знак дорожнього руху" />
+      <img src="ua_3.21.svg" alt="Знак дорожнього руху" style="width: 200px;" />
       <p><strong>Питання 1:</strong> Що означає цей знак?</p>
       <button onclick="checkAnswer('A')">Рух заборонено</button>
       <button onclick="checkAnswer('B')">Проїзд дозволено</button>
       <button onclick="checkAnswer('C')">Зупинка заборонена</button>
     </div>
     <div class="question" data-answer="B">
-      <img src="ua_1.2.svg" alt="Знак головної дороги" />
+      <img src="ua_1.2.svg" alt="Знак головної дороги" style="width: 100%; max-width: 360px;" />
       <p><strong>Питання 2:</strong> Що означає цей знак?</p>
       <button onclick="checkAnswer('A')">Поворот праворуч</button>
       <button onclick="checkAnswer('B')">Головна дорога</button>
       <button onclick="checkAnswer('C')">Перевага зустрічного руху</button>
     </div>
     <div class="question" data-answer="C">
-      <img src="ua_1.39.svg" alt="Пішохідний перехід" />
+      <img src="ua_1.39.svg" alt="Пішохідний перехід" style="width: 100%; max-width: 360px;" />
       <p><strong>Питання 3:</strong> Що означає цей знак?</p>
       <button onclick="checkAnswer('A')">Пішохідна доріжка</button>
       <button onclick="checkAnswer('B')">Місце для парковки</button>
