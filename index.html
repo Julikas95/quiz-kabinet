@@ -22,24 +22,6 @@
       margin-bottom: 30px;
     }
 
-    form {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      color: #333;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    input {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
     button {
       padding: 12px;
       background-color: #3D7D75;
@@ -50,13 +32,15 @@
       font-size: 16px;
       cursor: pointer;
       transition: background 0.3s;
+      margin: 10px 0;
+      width: 100%;
     }
 
     button:hover {
       background-color: #276458;
     }
 
-    #quiz { display: none; }
+    #quiz { display: block; }
     .question { display: none; }
     .question.active { display: block; animation: fadeIn 0.5s ease-in-out; }
 
@@ -76,18 +60,9 @@
   </style>
 </head>
 <body>
-  <h2>🚗 Почнімо з кількох контактів</h2>
-
-  <form id="startForm" action="https://formspree.io/f/mblgebeb" method="POST">
-    <input type="text" name="name" placeholder="Ім’я" required />
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="tel" name="phone" placeholder="Телефон" required />
-    <button type="submit">Почати квіз</button>
-  </form>
-
+  <h2>🚦 Перевір свої знання з ПДР</h2>
   <div id="quiz">
-    <h2>🚦 Перевір свої знання з ПДР</h2>
-    <div class="question" data-answer="A">
+    <div class="question active" data-answer="A">
       <img src="ua_3.21.svg" alt="Знак дорожнього руху" />
       <p><strong>Питання 1:</strong> Що означає цей знак?</p>
       <button onclick="checkAnswer('A')">Рух заборонено</button>
@@ -112,29 +87,6 @@
   </div>
 
   <script>
-    document.getElementById('startForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const formData = new FormData(form);
-
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          form.style.display = 'none';
-          document.getElementById('quiz').style.display = 'block';
-          document.querySelectorAll('.question')[0].classList.add('active');
-        } else {
-          alert("Помилка при відправці форми. Спробуйте ще раз.");
-        }
-      }).catch(error => {
-        alert("Помилка підключення. Спробуйте ще раз.");
-      });
-    });
-
     let current = 0;
     let correct = 0;
     const questions = document.querySelectorAll('.question');
@@ -165,3 +117,4 @@
   </script>
 </body>
 </html>
+
