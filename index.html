@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Квіз Кабінету водія</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -58,10 +59,25 @@
       border-radius: 12px;
       text-align: center;
     }
+
+    .result.winner {
+      animation: pulse 2s infinite;
+      border: 2px solid gold;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+      70% { box-shadow: 0 0 10px 20px rgba(255, 215, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
   </style>
 </head>
 <body>
   <h2>🚦 Перевір свої знання з ПДР</h2>
+
+  <!-- Переможний звук -->
+  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c86fbdfb45.mp3?filename=success-1-6297.mp3"></audio>
+
   <div id="quiz">
     <div class="question active" data-answer="A">
       <img src="ua_3.21.svg" alt="Знак дорожнього руху" />
@@ -91,6 +107,7 @@
     let current = 0;
     let correct = 0;
     const questions = document.querySelectorAll('.question');
+    const winSound = document.getElementById('winSound');
 
     function checkAnswer(choice) {
       const answer = questions[current].dataset.answer;
@@ -110,7 +127,10 @@
       const result = document.getElementById('result');
       result.style.display = 'block';
       if (correct === questions.length) {
+        result.classList.add('winner');
         result.innerHTML = '<h3>🎉 Вітаємо! Ви відповіли правильно на всі питання та виграли приз!</h3>';
+        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+        winSound.play();
       } else {
         result.innerHTML = '<h3>😢 На жаль, ви не відповіли правильно на всі питання. Спробуйте ще раз!</h3>';
       }
@@ -118,3 +138,4 @@
   </script>
 </body>
 </html>
+
