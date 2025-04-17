@@ -114,6 +114,14 @@
       if (choice === answer) {
         correct++;
       }
+
+      // Якщо це останнє питання — відразу програємо звук
+      const isLastQuestion = current === questions.length - 1;
+      if (isLastQuestion && correct + 1 === questions.length && choice === answer) {
+        winSound.play();
+        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+      }
+
       questions[current].classList.remove('active');
       current++;
       if (current < questions.length) {
@@ -129,8 +137,6 @@
       if (correct === questions.length) {
         result.classList.add('winner');
         result.innerHTML = '<h3>🎉 Вітаємо! Ви відповіли правильно на всі питання та виграли приз!</h3>';
-        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-        winSound.play();
       } else {
         result.innerHTML = '<h3>😢 На жаль, ви не відповіли правильно на всі питання. Спробуйте ще раз!</h3>';
       }
@@ -138,4 +144,3 @@
   </script>
 </body>
 </html>
-
