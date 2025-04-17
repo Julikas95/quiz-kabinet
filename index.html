@@ -54,7 +54,29 @@
       transform: scale(1.02);
     }
 
-    #quiz { display: block; }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    #quiz { display: none; }
     .question { display: none; }
     .question.active { display: block; animation: fadeIn 0.5s ease-in-out; }
 
@@ -114,6 +136,19 @@
 <body>
   <h2>🚦 Перевір свої знання з ПДР</h2>
 
+  <form id="userForm" action="https://formspree.io/f/mblgebeb" method="POST" onsubmit="startQuiz(event)">
+    <label for="name">Ім’я</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="phone">Телефон</label>
+    <input type="tel" id="phone" name="phone" required />
+
+    <button type="submit">▶️ Почати квіз</button>
+  </form>
+
   <div id="quiz">
     <div class="question active" data-answer="A">
       <img src="ua_3.22.svg" alt="Дорога" style="width: 100%; max-width: 500px;" />
@@ -145,6 +180,12 @@
     let current = 0;
     let correct = 0;
     const questions = document.querySelectorAll('.question');
+
+    function startQuiz(event) {
+      event.preventDefault();
+      document.getElementById('userForm').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+    }
 
     function checkAnswer(choice) {
       const answer = questions[current].dataset.answer;
@@ -186,3 +227,4 @@
   </script>
 </body>
 </html>
+
