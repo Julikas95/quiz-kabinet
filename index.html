@@ -57,12 +57,28 @@
     }
 
     #quiz { display: none; }
+    .question { display: none; }
+    .question.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result {
+      display: none;
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <h2>🚗 Почнімо з кількох контактів</h2>
 
-  <form id="startForm">
+  <form id="startForm" action="https://formspree.io/f/mblgebeb" method="POST">
     <input type="text" name="name" placeholder="Ім’я" required />
     <input type="email" name="email" placeholder="Email" required />
     <input type="tel" name="phone" placeholder="Телефон" required />
@@ -96,15 +112,27 @@
   </div>
 
   <script>
-    // Приховуємо форму та показуємо квіз після заповнення форми
     document.getElementById('startForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Можна тут відправити дані на Google Form, Formspree або інше
-      // Наприклад, console.log(e.target.name.value, e.target.email.value, e.target.phone.value);
+      const form = e.target;
+      const formData = new FormData(form);
 
-      this.style.display = 'none';
-      document.getElementById('quiz').style.display = 'block';
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('quiz').style.display = 'block';
+          document.querySelectorAll('.question')[0].classList.add('active');
+        } else {
+          alert("Помилка при відправці форми. Спробуйте ще раз.");
+        }
+      }).catch(error => {
+        alert("Помилка підключення. Спробуйте ще раз.");
+      });
     });
 
     let current = 0;
@@ -137,4 +165,5 @@
   </script>
 </body>
 </html>
+
 
