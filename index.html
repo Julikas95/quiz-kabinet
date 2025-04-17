@@ -66,6 +66,7 @@
       padding: 30px;
       border-radius: 12px;
       text-align: center;
+      position: relative;
     }
 
     .result.winner {
@@ -83,6 +84,20 @@
       width: 200px;
       margin: 20px auto 10px;
       animation: popIn 0.6s ease-out;
+    }
+
+    .prize {
+      width: 180px;
+      margin: 30px auto 0;
+      animation: bounceGlow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounceGlow {
+      0% { transform: translateY(0) scale(1); filter: brightness(1); }
+      25% { transform: translateY(-10px) scale(1.05); filter: brightness(1.2); }
+      50% { transform: translateY(0) scale(1); filter: brightness(1); }
+      75% { transform: translateY(-5px) scale(1.03); filter: brightness(1.1); }
+      100% { transform: translateY(0) scale(1); filter: brightness(1); }
     }
 
     @keyframes popIn {
@@ -146,12 +161,14 @@
       result.style.display = 'block';
       if (correct === questions.length) {
         result.classList.add('winner');
-        result.innerHTML = '<h3>🎉 Точно знаєш ПДР! Бери приз!</h3>';
+        result.innerHTML = `
+          <h3>🎉 Точно знаєш ПДР! Бери приз!</h3>
+          <img src="image 1313.svg" alt="Приз" class="prize" />
+        `;
         confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
       } else {
         const loseMessages = [
           "GPS втратив сигнал знань"
-         
         ];
         const random = loseMessages[Math.floor(Math.random() * loseMessages.length)];
         result.innerHTML = `
@@ -165,3 +182,4 @@
   </script>
 </body>
 </html>
+
